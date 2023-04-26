@@ -2,7 +2,6 @@ package com.spring.gameapp.iteration03;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.spring.gameapp.iteration03.game.GameConfiguration;
 import com.spring.gameapp.iteration03.game.GameRunner;
 import com.spring.gameapp.iteration03.game.GamingConsole;
 
