@@ -1,0 +1,47 @@
+Iteration 1 : AppGamingBasicJava : Tightly coupled Java code:
+---------------------------------------------------------------------
+* GameRunner class
+* Game classes: Mario, SuperContra, Pacman etc
+
+GameRunner class is tightly coupled with a specific class
+If we need MarioGame, then we need to make use of MarioGame implementation in GameRunner class
+Whereas if we need SuperContraGame, we need to make use of SuperContra implementation in GameRunner class
+
+Coupling: How much work is involved in changing something?
+We want loose coupling as much as possible
+========================================================================================================================
+Iteration 2 : Loose Coupling using interfaces : AppGamingUsingInterfaces
+---------------------------------------------------------------------------
+* GameRunner class
+* GamingConsole interface
+* Game classes: Mario, SuperContra, Pacman etc
+
+Now, in the example, GamingConsole interface is implemented by all the games
+So, we need not change the constructor for every new game in the GameRunner class, we can actually make use of the created interface, 
+GameRunner class is disconnected or loosely coupled from specific Game classes, this is called loose coupling.
+No change is required on GameRunner to change the Game, it doesn't matter which game is running for GameRunner class now
+========================================================================================================================
+Iteration 3 : Magic of Spring Framework
+---------------------------------------------------------------------------
+
+========================================================================================================================
+Spring Container - Manages spring beans and their life cycle, this is also called as IOC container or Spring context
+Two IOC containers are 
+1. Bean Factory - Basic Spring Container
+2. Application Context - Advanced Spring Container with enterprise specific features
+	Easy to use in web applications, web services, REST API and microservices
+	Easy internationalization
+	Easy integration with Spring AOP
+========================================================================================================================
+Pojo vs JavaBeans vs Spring Beans
+---------------------------------------------
+Pojo - Plain Old Java Object, all Java objects are Pojos
+Java Beans - should have public no args constructor, should have getters and setters for all the fields, should implement Serializable interface
+Spring Beans - Any Java object that is managed by Spring
+	Spring uses IOC container (Bean Factory or Application Context) to manage these objects.
+========================================================================================================================
+Multiple matching beans in Spring context
+---------------------------------------------
+Make one of them primary
+Use @Qualifier for referring specific bean
+========================================================================================================================
