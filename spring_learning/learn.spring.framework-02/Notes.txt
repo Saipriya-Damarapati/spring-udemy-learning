@@ -1,0 +1,26 @@
+Spring terminologies:
+------------------------
+@Component - An instance of class will be managed by spring framework
+Dependency - GameRunner needs GamingConsoleImpl
+				Example: GamingConsoleImpl(MarioGame) is a dependency of GameRunner
+@ComponentScan - How does spring framework find component classes
+				- It scans all the mentioned packages and sub-packages for components
+				- If value is not added, then it scans for current package and sub-packages
+Dependency Injection - Identify beans, their dependencies and wire them together
+IOC - Inversion of Control - actual work of creating objects and wiring them together is done by spring and not the programmer, so control is given to spring
+Spring Beans - An object managed by spring framework
+IOC Container - Manages the life cycle of beans and dependencies
+				- 2 types : BeanFactory and ApplicationContext
+Autowiring - Process of wiring the dependencies for a spring bean
+
+
+==================================================================================================================================================
+Heading                |        @Component                                       |                           @Bean                               |
+==================================================================================================================================================
+Where?                 | Can be used on any Java class                           | Typically used on methods in Spring configuration classes     |
+Ease of use            | Very easy, just add an annotation                       | You write all the code                                        |
+Auto-wiring            | Yes - Field, Setter or Constructor                      | Yes - method call or method parameters                        |
+Who create beans?      | Spring Framework                                        | You write bean creation code                                  |
+Recommended for?       | Instantiating beans for your own application            | Custom Business Logic, instantiating bean for 3rd party libs  |
+                       |     Code: @Component                                    |   Code: @Bean                                                 |
+==================================================================================================================================================
