@@ -1,8 +1,10 @@
 package com.spring.dependency.inj.exercise;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+//@Component
+@Repository
 public class MySQLDbDataService implements DataService {
 
 	@Override
