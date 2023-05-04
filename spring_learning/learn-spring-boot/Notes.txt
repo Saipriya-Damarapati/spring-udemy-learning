@@ -1,0 +1,46 @@
+Dependency for a simple REST API
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+@RestController - the class which provides business logic for the rest call
+@RequestMapping("/courses") : url for the rest call
+
+@ConfigurationProperties(prefix = "currency-config") - to read the property values loaded from application.properties
+
+application.properties
+-------------------------
+logging.level.org.springframework= - to enable logging by default, with out any manual configuration
+spring.profiles.active= - to have multiple profiles based on the environment
+Custom values based on the profile can be configured and can be accessed by annotating @ConfigurationProperties
+currency-config.url=
+
+Any key-value pair in application.properties can be over-written by using profile specific application properties file
+Profile specific property file will take higher precedence
+
+DevTools related
+---------------------
+Include the below dependency
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+This will auto-restart the application and avoids the manual restart with every change		
+
+
+Actuator related
+---------------------
+management.endpoints.web.exposure.include=* (specify only those required in real time)
+this will enable us to fetch data from endpoints published
+Include the below dependency 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+hit the below urls
+	* http://localhost:8080/actuator
+	* http://localhost:8080/actuator/beans
+	* http://localhost:8080/actuator/health
+	* http://localhost:8080/actuator/metrics
+	* http://localhost:8080/actuator/metrics/http.server.requests
