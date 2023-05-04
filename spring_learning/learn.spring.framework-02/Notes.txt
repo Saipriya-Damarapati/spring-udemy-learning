@@ -24,3 +24,121 @@ Who create beans?      | Spring Framework                                       
 Recommended for?       | Instantiating beans for your own application            | Custom Business Logic, instantiating bean for 3rd party libs  |
                        |     Code: @Component                                    |   Code: @Bean                                                 |
 ==================================================================================================================================================
+
+Lazy initialization:
+-----------------------
+Default initialization of spring beans is Eager
+Eager initialization is recommended - errors in the configuration are discovered immediately at the application startup.
+However, you can configure beans to be lazily initialized using @Lazy annotation, but not recommended and not frequently used.
+Lazy annotation can be used almost everywhere, where @Component and @Bean are used
+Lazy-resolution proxy will be injected instead of actual dependency
+can be used on configuration classes also, all @Bean methods in the @Configuration classes will be lazily initialized
+==================================================================================================================================================
+
+Spring Bean Scopes
+-----------------------
+#Singleton - One object instance per Spring IOC Container
+#Prototype - Possibly many object instances per Spring IoC Container
+
+In addition to singleton and prototype, we have the below scopes applicable only for web-aware spring application context
+ * 		Request - one object instance per single http request
+ * 		Session - one object instance per single http session
+ * 		Application - one object instance per web application runtime
+ * 		Web Socket - one object per web socket instance
+
+Java Singleton (GOF) vs Spring Singleton
+-----------------------------------------
+ Spring Singleton - One object instance per Spring IOC container
+ Java Singleton (GOF) - One object instance per JVM
+==================================================================================================================================================
+
+==================================================================================================================================================
+Heading                |         Prototype                                       |                           Singleton                           |
+==================================================================================================================================================
+Instances              | Possibly many per IOC container                         | One per Spring IOC Container                                  |
+Beans                  | New bean instance created every time, bean is referred  | Same bean instance reused                                     |
+Default                | Not default                                             | Default                                                       |
+Code Snippet           | @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) | @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)or default |
+Usage                  | Rarely used                                             | Very frequently used                                          |
+Recommended Scenario   | Stateful beans                                          | Stateless beans                                               |
+==================================================================================================================================================
+
+Jakarta Contexts & Dependency Injection (CDI)
+----------------------------------------------------------
+CDI Specification was introduced to Java EE 6 platform
+CDI is a specification (interface)
+	Spring Framework implements CDI
+	
+Important Inject API Annotations:
+ * Inject (~Autowired in Spring)
+ * Named (~Component in Spring)
+ * Qualifier
+ * Scope
+ * Singleton
+==================================================================================================================================================
+Heading                |         Annotations                                     |                   XML Configuration                           |
+==================================================================================================================================================
+Ease of Use            | Very easy (defined close to source class/method.variable| Cumbersome                                                    |
+Short and Concise      | Yes                                                     | No                                                            |
+Clean pojos            | No, Pojos are polluted with Spring annotations          | Yes, no change in Java code                                   |
+Easy to maintain       | Yes                                                     | No                                                            |
+Usage frequency        | Almost all recent projects                              | Rarely                                                        |
+Debugging difficulty   | Hard                                                    | Medium                                                        |
+Recommended Scenario   | Either of them is fine, but do not mix both
+==================================================================================================================================================
+Spring stereotype annotations
+----------------------------------
+ * @Component 
+ 	- Generic annotation applicable for any class
+ 	- Base for all spring stereotype annotations
+ 	- Specialization of @Component:
+ 		@Service - indicates that an annotated class has business logic
+ 		@Controller - indicates that an annotated class is a controller (eg, a web controller) used to define controllers in web applications and REST API
+ 		@Repository - indicates that an annotated class is used to retrieve/manipulate data in a database
+ 		
+	What should we use? - Use the most specific annotation possible
+ 	Why? - You are giving more information to the framework about your intentions
+ 		 - You can use AOP at a later point to add additional behavior
+ 		   for example, @Repository - spring automatically wires in JDBC exception translation features
+==================================================================================================================================================
+Revision on Spring annotations
+----------------------------------
+==================================================================================================================================================
+Annotation        | Description                                                                                                                  |
+==================================================================================================================================================
+@Configuration    | Indicates that a class declares one or more @Bean methods                                                                    |
+			      |      and may be processed by the spring container to generate bean definitions                                               |
+@ComponentScan    | Defines specific packages to scan for components.                                                                            |
+                  |      If specific packages are not defined, scanning will occur from the package of the class that declares this annotation   |
+@Bean             | Indicates that a method produces a bean to be managed by the spring container                                                |
+@Component        | Indicates that an annotated class is a component                                                                             |
+@Service          | Specialization of @Component indicating that an annotated class has business logic                                           |
+@Controller       | Specialization of @Component indicating that an annotated class is a controller (eg, a web controller)                       |
+                  |      Used to define controllers in web applications and REST API                                                             |
+@Repository       | Specialization of @Component indicating that an annotated class is used to retrieve and/or manipulate data in a database     |
+@Primary          | (too generic) Indicates that a bean should be given preference                                                               |
+                  |     when multiple candidates are qualified to autowire a single valued dependency                                            |
+@Qualifier        | (too specific) Used on a field or parameter as a qualifier for candidate beans when autowiring                               |
+@Lazy             | Indicates that a bean has to be lazily initialized. Absence of @Lazy annotation will lead to eager initialization            |
+@Scope()          | @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) defines a bean to be a prototype                                     |
+                  |     a new instance will be created eveytime you refer to the bean.                                                           |
+                  |     Default scope is singleton, one instance per IOC container                                                               |
+@PostConstruct    | Identifies the method that will be executed after dependency injection is done to perform any initialization                 |
+@PreDestroy       | Identifies the method that will receive the callback notification to signal that the instance is in the process of           |
+                  |     being removed by the container. Typically used to release resources that it has been holding                             |
+@Named            | Jakarta Contexts & Dependency Injection (CDI) annotation similar to @Component                                               |
+@Inject           | Jakarta Contexts & Dependency Injection (CDI) annotation similar to @Autowired                                               |
+==================================================================================================================================================
+Concept                | Description                                                                                                             |
+==================================================================================================================================================
+Dependency Injection   | Identify the beans, their dependencies and wire them together (provides IOC - Inversion of Control)                     |
+Constructor Injection  | Dependencies are set by creating the bean using its constructor                                                         |
+Setter Injection       | Dependencies are set by calling the setter methods on your beans                                                        |
+Field Injection        | No setter or constructor, dependency is injected using reflection                                                       |
+IOC Container          | Spring IOC context that manages Spring beans and their lifecycle                                                        |
+Bean Factory           | Basic spring IOC container                                                                                              |
+Application Context    | Advanced Spring IOC Container with enterprise-specific features.                                                        |
+                       |    Easy to use in web applications with internationalization features and good integration with spring AOP              |
+Spring Beans           | Objects managed by Spring                                                                                               |
+Auto-wiring            | Process of wiring in dependencies for a spring bean                                                                     |
+==================================================================================================================================================

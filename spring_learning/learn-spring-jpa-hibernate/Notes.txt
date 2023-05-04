@@ -1,0 +1,69 @@
+Spring Data JDBC - Persist data in SQL stores with plain JDBC using Spring Data.
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+		</dependency>
+
+Spring Data JPA - Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+Spring Web - * Build web, including RESTful, applications using Spring MVC. 
+			 * Uses Apache Tomcat as the default embedded container.
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+H2 Database - * Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. 
+			  * Supports embedded and server modes as well as a browser based console application.		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+spring-jdbc learning
+--------------------
+@Repository - to mention that class interacts with database
+implements CommandLineRunner and override run method in any spring component class, to run anything as part of startup
+JdbcTemplate.queryForObject - when my result set has only one row
+BeanPropertyRowMapper - when the db table column names and the bean property names are same, (bean class must have setters)
+
+spring-jpa-hibernate
+--------------------
+JPA - Create a mapping between Java Bean and SQL Table
+@Repository - to mention that class interacts with database
+@Transactional - Whenever we need to run queries using JPA, transaction should be enabled
+EntityManager API 	- used to create and remove persistent entity instances, to find entities by their primary key, and to query over entities. 
+EntityManager 		- interface used to interact with persistence context. EntityManager instance is associated with a persistence context. 
+Persistence context - a set of entity instances in which for any persistent entity identity there is a unique entity instance. 
+                    - within the persistence context, the entity instances and their lifecycle are managed.
+
+@PersistenceContext on the field EntityManager in the Repository class 
+                    - Expresses a dependency on a container-managed EntityManager and its associated persistence context.
+                    - @Autowired also works, but @PersistenceContext is more specific
+
+@Entity - To map Java Bean to a table
+@Entity(name = "table_name") - if the bean name and table name are different, mention the name of the table with name attribute
+@Id - To mention the primary key of the table
+@Column - To mention a field as column of the table
+@Column(name = "column_name") - if the column name of the table is different from the field name of the bean, 
+                                 then mention the mapping using the name attribute. 
+                                 
+Set this in application.properties (spring.jpa.show-sql=true) to see the SQL queries constructed and executed
+
+Spring data JPA
+-----------------
+Need not use entity manager at all
+Just create an interface that extends JpaRepository, and autowire the interface to use in command line runner
+Explore the variety of methods that it provides
+
+
+Evolution: JDBC -> Spring JDBC -> JPA -> Spring Data JPA
+
+
+Hibernate vs JPA
+------------------
