@@ -45,3 +45,43 @@ Multiple matching beans in Spring context
 Make one of them primary
 Use @Qualifier for referring specific bean
 ========================================================================================================================
+References:
+https://github.com/in28minutes/course-material/blob/main/00-master-spring-and-spring-boot/downloads.md
+
+Resources for Installing Java and Eclipse - Next Video
+Link to Github Repo: https://github.com/in28minutes/master-spring-and-spring-boot/#installing-tools
+
+Our Recommendations
+-------------------------
+Use the LATEST version of Java
+Use the LATEST version of "Eclipse IDE for Enterprise Java Developers"
+Remember: Spring Boot 3+ works only with Java 17+
+
+Installing Java
+-------------------------
+Windows - https://www.youtube.com/watch?v=I0SBRWVS0ok
+Linux - https://www.youtube.com/watch?v=mHvFpyHK97A
+Mac - https://www.youtube.com/watch?v=U3kTdMPlgsY
+
+Troubleshooting
+-------------------------
+Troubleshooting Java Installation - https://www.youtube.com/watch?v=UI_PabQ1YB0
+
+Installing Eclipse
+-------------------------
+Windows - https://www.youtube.com/watch?v=toY06tsME-M
+Others - https://www.youtube.com/watch?v=XveQ9Gq41UM
+
+Troubleshooting
+-------------------------
+Configuring Java in Eclipse - https://www.youtube.com/watch?v=8i0r_fcE3L0
+===========================================================================================================================
+CODE BACKUP and STEP BY STEP CHANGES : For Coding Reference and Debugging
+👉 Bookmark the GitHub folder for this section
+---------------------------------------------------
+https://github.com/in28minutes/master-spring-and-spring-boot/tree/main/01-spring
+
+👉 Help for Debugging Problems
+-------------------------------------
+Here's the code backup at the end of step 05: https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/01-spring/01-Step05.md
+Step by Step changes are detailed here: https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/01-spring/step-by-step-code-changes/step-by-step-guide.md

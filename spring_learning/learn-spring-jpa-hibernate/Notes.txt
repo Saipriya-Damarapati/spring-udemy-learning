@@ -67,3 +67,10 @@ Evolution: JDBC -> Spring JDBC -> JPA -> Spring Data JPA
 
 Hibernate vs JPA
 ------------------
+JPA is an interface or specification
+Hibernate is one framework which implements JPA
+
+References:
+-------------
+👉 Bookmark the GitHub folder for this section
+https://github.com/in28minutes/master-spring-and-spring-boot/tree/main/03-jpa-getting-started 

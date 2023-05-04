@@ -142,3 +142,14 @@ Application Context    | Advanced Spring IOC Container with enterprise-specific 
 Spring Beans           | Objects managed by Spring                                                                                               |
 Auto-wiring            | Process of wiring in dependencies for a spring bean                                                                     |
 ==================================================================================================================================================
+
+👉 Bookmark the GitHub folder for this section  (SAME FOLDER AS PREVIOUS SECTION)
+---------------------------------------------
+https://github.com/in28minutes/master-spring-and-spring-boot/tree/main/01-spring
+
+👉 Help for Debugging Problems
+--------------------------------------
+Here's the code backup at the end of step 04: 
+https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/01-spring/02-Step04.md
+Step by Step changes are detailed here: 
+https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/01-spring/step-by-step-code-changes/step-by-step-guide.md#section-02
