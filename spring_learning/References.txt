@@ -1,1 +1,8 @@
-https://cglearning.udemy.com/course/spring-boot-and-spring-framework-tutorial-for-beginners/
+* [NEW] Master Spring Boot 3 & Spring Framework 6 with Java
+	# https://cglearning.udemy.com/course/spring-boot-and-spring-framework-tutorial-for-beginners/
+
+* Master Hibernate and JPA with Spring Boot in 100 Steps
+	# https://cglearning.udemy.com/course/hibernate-jpa-tutorial-for-beginners-in-100-steps/
+
+* Learn DevOps: Docker, Kubernetes, Terraform and Azure DevOps
+	# https://cglearning.udemy.com/course/devops-with-docker-kubernetes-and-azure-devops/

@@ -1,0 +1,103 @@
+Using Spring security
+-------------------------
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		
+* Just by adding the dependency, we have security enabled for the application
+* On restart of web application, the system auto-genertaes a password and prints it in the log line like below
+	# 	2023-05-06T22:07:50.191+05:30  WARN 1144 --- [  restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+		Using generated security password: 38da59c1-d6b1-4c72-9115-686a578a837a
+		This generated password is for development use only. Your security configuration must be updated before running your application in production.
+		2023-05-06T22:07:51.014+05:30  INFO 1144 --- [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@39dee7fe, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@a10e16b, org.springframework.security.web.context.SecurityContextHolderFilter@51757710, org.springframework.security.web.header.HeaderWriterFilter@322ebab8, org.springframework.security.web.csrf.CsrfFilter@638a53b7, org.springframework.security.web.authentication.logout.LogoutFilter@36d31766, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3553255e, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4469822, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@60da0799, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@689b7cc2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@345a9911, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@e55a65b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@423a7cc7, org.springframework.security.web.access.ExceptionTranslationFilter@134eb9f3, org.springframework.security.web.access.intercept.AuthorizationFilter@1d162fbe]
+		
+* Launch the application and see it goes to login page for any action.
+* Default user name is user and the password is what is printed in logs.
+===========================================================================================================================================================
+* Refer SpringSecurityConfiguration.java for custom security configuration
+* Typically we use LDAP for security or atleast database
+* Here, we will use InMemoryUserDetailsManager
+
+* We can create UserDetailsManager with default password encoder as a first step
+* We can then improve the password encoder, by creating a new password encoder bean to return BCryptPasswordEncoder
+===========================================================================================================================================================
+To get logged in username from spring security:
+-----------------------------------------------
+* SecurityContextHolder.getContext().getAuthentication().getName()
+===========================================================================================================================================================
+Using H2 database
+-------------------
+* Add the dependencies to pom.xml
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+* Accessing H2 console, after configuring spring security gives error.
+------------------------------
+Features of spring security
+------------------------------
+* All URLs are protected
+* Login form is shown for all unauthorized requests
+* By default, spring security by default doesn't allow HTML Frames (HTML Frames are used in H2 consoles) 
+* Spring security - by default CSRF is also enabled
+
+* In order to access H2 console, we need to 
+	# disable CSRF
+	# configure spring security to allow HTML frames
+* Do the following configuration
+	# Create a Custom SecurityFilterChain
+	# When we override SecurityFilterChain, we need to define the entire chain again.
+
+	@Bean
+	public SecurityFilterChain customFilterChain(HttpSecurity httpSec) throws Exception {
+		httpSec.authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
+		httpSec.formLogin(withDefaults());
+		return httpSec.build();
+	}
+	
+	# Disable CSRF -> httpSec.csrf().disable();
+	# Disable http frames in security -> httpSec.headers().frameOptions().disable();
+	
+* Try login, and open h2-console now, it works.
+
+Concepts:
+* SecurityFilterChain: 
+	# Defines a filter chain matched against every request
+	# Whenever a web request comes in, it will be processed by SecurityFilterChain first.
+	# Whenever we click on any url of our application, without authorization, it comes to login page by default, this is done by SecurityFilterChain
+	
+===================================================================================================================================================
+Making Todo an Entity and Population Todo Data into H2
+---------------------------------------------------------
+	# Mark the pojo class with @ Entity
+	# Mark the key column with @Id and @GeneratedValue
+* This will automatically create the table in H2 database
+
+	# Add sql file in src/main/resources that contains insert queries
+* on server restart, we would see an exception
+	# Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TODO" not found (this database is empty); SQL statement:
+	# This is because data.sql is executed before the entities are processed.
+	
+* In order to avoid this issue, delay the sql execution with the below property in application.properties
+	# spring.jpa.defer-datasource-initialization=true
+
+* To use JPA on an entity class, it must always have a default no-args constructor
+===================================================================================================================================================
+Spring Boot Auto Configuration
+-------------------------------------
+* We added data JPA and H2 dependencies, Spring Boot Auto Configuration does the following
+	# Initialize JPA and Spring data JPA frameworks
+	# Launch an in-memory database H2
+	# Setup connection from app to in-memory database
+	# Launch few sql scripts at the startup 
+	
+* H2 is in memory database, it does not persist data
+===================================================================================================================================================
