@@ -1,0 +1,10 @@
+Functional Programming is a Paradigm shift - fundamental change in the approach
+-------------------------------------------------------------------------------------
+How is Functional Programming different?
+
+Streams, Lambda Expressions and Method References
+-------------------------------------------------------------------------------------
+Functional Programming focuses on what to do, forEach element, what to do if the condition is true
+
+filter - to filter the elements in stream
+map - mapping input value to another value
