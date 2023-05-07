@@ -101,3 +101,11 @@ Spring Boot Auto Configuration
 	
 * H2 is in memory database, it does not persist data
 ===================================================================================================================================================
+Docker Installation:
+* Windows 10 or higher
+	# https://docs.docker.com/engine/install/
+	
+* Windows 7 or higher	
+	# https://docs.bitnami.com/containers/how-to/install-docker-in-windows/
+	
+* https://www.docker.com/products/docker-desktop/
