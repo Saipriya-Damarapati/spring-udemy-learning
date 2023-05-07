@@ -8,3 +8,5 @@ Functional Programming focuses on what to do, forEach element, what to do if the
 
 filter - to filter the elements in stream
 map - mapping input value to another value
+
+Optional - Java's solution to solve problems with using null's
