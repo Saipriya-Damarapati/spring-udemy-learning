@@ -8,6 +8,73 @@ Advanced REST API features
 * Static Filtering
 * Dynamic Filtering
 * Monitoring
---------------------------------------------------------------------------------------------------------------------------------------------
-Documentation : OpenAPI Specification and Swagger
+========================================================================================================================================
+Documentation : Swagger and OpenAPI Specification 
 ------------------------------------------------------
+* 2011 - Swagger specification and Swagger tools were introduced
+* 2016 - Open API specification created based on swagger specification, 
+			but Swagger tools (Swagger UI) continued to exist
+* Swagger UI - to visualize and interact with your rest api 
+* springdoc-openapi java library helps to automate the generation of API documentation for spring boot projects. 
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+* Add the dependency in pom.xml, and then restart the application
+	# http://localhost:8080/swagger-ui/index.html#/
+--------------------------------------------------------------------------------------------------------------------------------------------
+Content Negotiation
+-----------------------
+* Same resource - same URI
+	# Different representations are possible
+		$ Different content type - XML or JSON or
+		$ Different languages - English or Dutch
+* Consumer should tell you what they want - content negotiation
+	# Example: Accept header (MIME types - application/xml, application/json)
+	# Example: Accept-Language header (en, nl, fr)
+* To enable xml support, add the below dependency to pom.xml
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+* Test the changes like below
+	# Open Talend API tester, for any get action, add headers [Accept: application/xml]
+	# Send the request
+	# See the response body in xml format
+--------------------------------------------------------------------------------------------------------------------------------------------
+Internationalization - I18N
+--------------------------------
+* How do you customize to the users around the world? - I18N
+* Typically, HTTP Request Header - Accept-Language is used
+	# Accept-Language: Natural language and locale that consumer prefers
+		# en - English (Good Morning)
+		# nl - Dutch (Goedemorgen)
+		# fr - French (Bonjour)
+* Implementation:
+	# Create files separately, named messages.properties, messages_{locale}.properties for how many ever locales required
+	# Add a field messageSource in the resource class [org.springframework.context.MessageSource]
+	# Call messageSource.getMessage(String code, @Nullable Object[] args, @Nullable String defaultMessage, Locale locale) to get the value
+		return messageSource.getMessage("good.morning.message", null, "Default Message", locale);
+	# To get the locale for the current request, 
+		Locale locale = LocaleContextHolder.getLocale();
+* Test the changes like below
+	# Open Talend API tester, for the action that uses i18N and messageSource, add headers [Accept-Language: en / nl / frs]
+	# Send the request
+	# See the response body in xml format
+--------------------------------------------------------------------------------------------------------------------------------------------
+Versioning REST APIs - URL versioning
+----------------------------------------
+* Variety of options
+	# URL
+	# Request parameter
+	# Header
+	# Media type
+
+* URL: Different URLs for different versions
+	# http://localhost:8080/v1/person
+	# http://localhost:8080/v2/person
+--------------------------------------------------------------------------------------------------------------------------------------------
+References:
+------------
+* https://github.com/in28minutes/master-spring-and-spring-boot/tree/main/12-rest-api/01-step-by-step-changes/v2.md#step-21
