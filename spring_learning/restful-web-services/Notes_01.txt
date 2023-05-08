@@ -1,0 +1,150 @@
+Project is initialized with the below dependencies
+
+# spring-boot-starter-web
+# spring-boot-starter-data-jpa
+# spring-boot-devtools
+# h2
+====================================================================================================================================================================s
+What happens in the back ground? How are requests handled?
+------------------------------------------------------------
+* All requests are being handled by DispatcherServlet
+* DispatcherServlet is the first thing that the control goes to irrespective of the url
+* DispatcherServlet is the Front Controller Pattern.
+	# Logs: 2023-05-07T23:19:58.919+05:30 DEBUG 9512 --- [  restartedMain] o.s.b.w.s.ServletContextInitializerBeans : Mapping servlets: dispatcherServlet urls=[/], jakartaWebServlet urls=[/h2-console/*]
+* This is done by auto-configuration (DispatcherServletAutoConfiguration)
+* Since spring web is on class path, spring boot would enable auto configuration and configure it at the time of startup.
+	# Logs:     DispatcherServletAutoConfiguration matched:
+      				- @ConditionalOnClass found required class 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+      				- found 'session' scope (OnWebApplicationCondition)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+How does hello world bean object get converted to json?
+	# http://localhost:8080/hello-world-bean
+------------------------------------------------------------
+* @ResponseBody + JacksonHttpMessageConverters
+* @RestController interface has @ResponseBody annotation
+* The default conversion setup maintainer by Spring Boot is JacksonHttpMessageConverter
+	# This is also enabled by Spring Boot auto configuration
+	# JacksonHttpMessageConvertersConfiguration is auto-configured for rest-api by spring boot
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Who is configuring error mapping?
+------------------------------------------------------------
+* Wrong label - Whitelabel error page
+* This is also a result of AutoConfiguration
+	# ErrorMvcAutoConfiguration matched:
+     	 - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+     	 - found 'session' scope (OnWebApplicationCondition)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+How are all the jars available (Spring, SPring MVC, Jackson, Tomcat)?
+------------------------------------------------------------------------
+* Starter Projects - spring boot starter web
+						# spring-webmvc
+						# spring-web
+						# spring-boot-starter-tomcat
+						# spring-boot-starter-json
+* Spring boot auto-configuration does rest of the magic
+------------------------------------------------------------------------
+Path Variable:
+-----------------
+* /users/{id}/todos/{id}  => /users/1/todos/1, here {id} is the path parameter
+* 	@GetMapping(path = "/hello-world/path-variable/{name}")
+	public HelloWorldBean helloWorldPathVariable(@PathVariable String name) {
+		return new HelloWorldBean(String.format("Hello World, %s", name));
+	}
+* http://localhost:8080/hello-world/path-variable/Anu
+	# output: {"message":"Hello World, Anu"}
+==========================================================================================================================
+Request Methods for REST API:
+--------------------------------------------------
+* GET - Retrieve details of a resource
+* POST - Create a new resource
+* PUT - Update an existing resource
+* PATCH - Update part of a resource
+* DELETE - Delete a resource
+--------------------------------------------------------------------------------
+Designing REST API for Social Media Application
+--------------------------------------------------
+* Users REST API
+	# Retrieve all users  - GET/users
+	# Create a user       - POST/users
+	# Retrieve a user     - GET/users/{id} - GET/users/1
+	# Delete a user       - DELETE/users/{id} - DELETE/users/1
+	
+* Posts REST API
+	# Retrieve all posts for a user   - GET/users/{id}/posts
+	# Create a post for a user        - POST/users/{id}/posts
+	# Retrieve details of a post      - GET/users/{id}/posts/{post_id}
+	
+* Best Practices here is to use plurals
+	/users                instead of      /user
+	/users/1              instead of      /user/1
+	/users/1/posts        instead of      /user/1/post
+	/users/1/posts/2      instead of      /user/1/post/2
+--------------------------------------------------------------------------------
+Response status for REST API
+--------------------------------
+* 404 - Resource not found
+* 500 - Server exception
+* 400 - Validation error
+
+* 200 - Success
+* 201 - Created (Execute post request and new resource is created)
+* 204 - No content
+* 401 - Unauthorized (when authorization fails)
+* 400 - Bad request (validation error)
+---------------------------------------------------------------------------------------------------------------------------
+* By default, all the responses will have 200 Success status codes
+* When a post request is executed and a new resource is created, the REST client would expect 201 status code
+	# ResponseEntity.created(null).build() - this returns 201 response code
+* The REST client would also expect URI location of the newly created resource
+		// /users/4 => /users/{id}, user.getId()
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest() // to get the url from the current request
+									.path("/{id}")						// append id
+									.buildAndExpand(savedUser.getId())	// replace the value of id
+									.toUri();							// convert to uri
+		// location - /users/{id}
+		return ResponseEntity.created(location).build();
+* In higher environments like production, we would run the the application as a java jar file
+* Spring Boot Dev Tools is disabled when you run a java jar file
+* Even if the entry is available in build configuration, dev tools will be disabled
+* Error trace will be removed from response body when Dev Tools is disabled
+---------------------------------------------------------------------------------------------------------------------------
+Implementing Generic Exception Handling for all resources
+------------------------------------------------------------
+* By default, spring handles all spring mvc raised exceptions by using ResponseEntityExceptionHandler.
+* If we want to customize, then we would create CustomResponseEntityExceptionHandler, which will extend ResponseEntityExceptionHandler.
+* Default method that handles the exceptions is 
+		@ExceptionHandler(Exception.class)
+		public final ResponseEntity<Object> handleException(Exception ex, WebRequest request) throws Exception {
+* We will override this method with the object having the details we require (like ErrorDetails)
+* This method returns ResponseEntity with the body (errorDetails) and the custom http status code
+---------------------------------------------------------------------------------------------------------------------------
+Implementing Validations for REST API
+----------------------------------------
+* Include Spring Boot Starter Validation
+	pom.xml
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+* Implement validations on the user bean class
+* In the post request mapping, annotate the argument with @Valid, so that this parameter is picked for validation
+* This exception is handled by handleMethodArgumentNotValid() method of ResponseEntityExceptionHandler by default.
+* In order to have custom exception, we can customize this also in the previously created CustomResponseEntityExceptionHandler
+* Override and implement the below method to return, custom response body and the http status code
+		@Override
+		protected ResponseEntity<Object> handleMethodArgumentNotValid(
+			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+==========================================================================================================================
+References:
+---------------
+👉 Bookmark the GitHub folder for this section
+--------------------------------------------------
+https://github.com/in28minutes/master-spring-and-spring-boot/tree/main/12-rest-api
+
+👉 Help for Debugging Problems
+-------------------------------------
+Here's the code backup at the end of step 05: 
+https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/12-rest-api/Step05.md
+Step by Step changes are detailed here: 
+https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/12-rest-api/01-step-by-step-changes/v2.md
+==========================================================================================================================

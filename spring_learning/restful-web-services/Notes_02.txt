@@ -1,0 +1,13 @@
+Advanced REST API features
+-----------------------------------
+* Documentation
+* Content Negotiation
+* Internationalization
+* Versioning
+* HATEOAS
+* Static Filtering
+* Dynamic Filtering
+* Monitoring
+--------------------------------------------------------------------------------------------------------------------------------------------
+Documentation : OpenAPI Specification and Swagger
+------------------------------------------------------

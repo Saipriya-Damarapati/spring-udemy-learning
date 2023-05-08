@@ -6,3 +6,10 @@
 
 * Learn DevOps: Docker, Kubernetes, Terraform and Azure DevOps
 	# https://cglearning.udemy.com/course/devops-with-docker-kubernetes-and-azure-devops/
+	
+* Java Programming for Complete Beginners
+	# https://cglearning.udemy.com/course/java-programming-tutorial-for-beginners/
+	
+	# https://cglearning.udemy.com/course/functional-programming-with-java/
+	
+	# https://cglearning.udemy.com/course/spring-tutorial-for-beginners/
