@@ -71,9 +71,87 @@ Versioning REST APIs - URL versioning
 	# Header
 	# Media type
 
-* URL: Different URLs for different versions
+* URL: Different URLs for different versions (Twitter)
 	# http://localhost:8080/v1/person
 	# http://localhost:8080/v2/person
+	
+* Request Parameters: (Amazon)
+	# http://localhost:8080/person?version=1
+	# http://localhost:8080/person?version=2
+
+* Custom headers versioning: (Microsoft)
+	# SAME-URL headers=[X-API-VERSION=1]
+	# SAME-URL headers=[X-API-VERSION=2] 
+
+* Media type versioning [Content negotiation or Accept header] (Github)
+	# SAME-URL produces=application/vnd.company.app-v1+json
+	# SAME-URL produces=application/vnd.company.app-v2+json
+
+Factors to consider:
+---------------------
+* URI pollution
+	# URL and Request Parameters versioning, we will have many urls getting added.
+* Misuse of headers
+	# Headers and Media Type versioning misuse the headers, http headers are not meant for versioning
+* Caching
+	# Headers versioning and Media Type versioning use the same urls.
+	# Caching based on the urls might be a problem, we will also need to consider headers for caching.
+* Can we execute the request on the browser?
+	# URL and Request Parameters versioning can be executed on the browser
+	# Headers and Media Type versioning will need some command line utility or REST API client to differentiate based on the headers
+* API Documentation
+	# Tools for REST API documentation support for URL and Request Parameters versioning because they have different URL or different parameters
+	# Tools for REST API documentation generally do not support for Headers versioning and Media Type versioning because they deal with headers
+
+* Summary:
+	# There is no perfect solution, many enterprises use different versioning
+* Recommendations:
+	# Think about versioning even before you need it
+	# One enterprise - one versioning approach
+--------------------------------------------------------------------------------------------------------------------------------------------
+HATEOAS - Hypermedia as the Engine of Application State
+---------------------------------------------------------
+* Websites allows you to see DATA and perform ACTION (using links)
+* How about enhancing your REST API to tell consumers how to perform subsequent actions?
+	# HATEOAS
+* Implementation options:
+	# Custom format and implementation
+		- Difficult to maintain
+	# Use standard implementation
+		- HAL (JSON HAL) (JSON Hypertext Application Language) 
+		- simple format that gives a consistent and easy way to hyperlink between resources in your API
+		- Spring HATEOAS - generate HAL responses with hyperlinks to resources
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+* Entity Model
+* WebMvcLinkBuilder
+--------------------------------------------------------------------------------------------------------------------------------------------
+* Serialization : Convert object to stream
+* Customizing the REST API response returned by Jackson framework
+	# Customize the field names in response
+		- @JsonProperty
+	# Return only selected fields
+		- Filtering (example, filter out passwords)
+
+* Two types of filtering
+	# Static filtering and Dynamic filtering
+
+* Static filtering 
+	# same filtering for a bean across different REST API.
+	# like a password field is not part of any REST API
+		- @JsonIgnore (at field level)
+		- @JsonIgnoreProperties (at class level)
+
+* Dynamic filtering
+	# customizing filtering for a bean for specific REST API
+	 
+
+----------------------------------------------------------------------------
+Dynamic filtering
+---------------------
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 References:
 ------------
