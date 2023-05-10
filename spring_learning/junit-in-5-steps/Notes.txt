@@ -1,0 +1,7 @@
+* BeforeAll and AfterAll annotation related methods must be static
+
+* org.junit.platform.commons.JUnitException: 
+* @BeforeAll method 'void learn.junit.MyBeforeAfterTest.beforeAll()' must be static unless the test class is annotated with @TestInstance(Lifecycle.PER_CLASS).
+
+* org.junit.platform.commons.JUnitException: 
+* @AfterAll method 'void learn.junit.MyBeforeAfterTest.afterAll()' must be static unless the test class is annotated with @TestInstance(Lifecycle.PER_CLASS).
