@@ -1,0 +1,22 @@
+Stubs: 
+-------
+* A stub is a fake class that comes with preprogrammed return values. 
+* It's injected into the class under test to give you absolute control over what's being tested as input.
+
+Limitations of using Stubs
+----------------------------
+* Consider the example, SomeBusinessImplTest, we have a stub class DataServiceImpl
+	# whenever a new method is added to interface, we need to update the implementation
+	# Testing more scenarios is a problem, we might need multiple stubs
+=======================================================================================================================
+Mocks:
+-------
+* Simpler to write
+* Easier to maintain
+* To increase the scenarios, we need to create number of tests, need not create so many stub classes
+* When new code is added in interface or the class of mock, then the mocks are really not affected
+=======================================================================================================================
+References:
+-------------
+Bookmark the GitHub folder for this section
+	# https://github.com/in28minutes/master-spring-and-spring-boot/tree/main/52-mockito
