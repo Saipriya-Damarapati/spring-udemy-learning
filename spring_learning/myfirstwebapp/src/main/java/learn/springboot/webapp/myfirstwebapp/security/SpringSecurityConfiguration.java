@@ -55,7 +55,7 @@ public class SpringSecurityConfiguration {
 	
 	// By default, all URLs are protected
 	// A login form is shown for all unauthorized requests
-	// By default, spring doesn't allow Frames and CSRF is also enabled
+	// By default, spring doesn't allow Frames and CSRF is also enabled // mandatory for h2-console
 	
 	@Bean
 	public SecurityFilterChain customFilterChain(HttpSecurity httpSec) throws Exception {

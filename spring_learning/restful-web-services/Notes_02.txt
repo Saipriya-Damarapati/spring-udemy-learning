@@ -125,8 +125,11 @@ HATEOAS - Hypermedia as the Engine of Application State
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
-* Entity Model
+* Entity Model - A simple EntityModel wrapping a domain object and adding links to it.
+	# EntityModel<User> entityModel = EntityModel.of(user);
 * WebMvcLinkBuilder
+	# WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).retrieveAllUsers());
+		entityModel.add(link.withRel("all-users"));
 --------------------------------------------------------------------------------------------------------------------------------------------
 * Serialization : Convert object to stream
 * Customizing the REST API response returned by Jackson framework
@@ -146,12 +149,91 @@ HATEOAS - Hypermedia as the Engine of Application State
 
 * Dynamic filtering
 	# customizing filtering for a bean for specific REST API
-	 
+	 	- @JsonFilter(value = "someBeanFilter") on the bean class // this id should be same as the filter id, added on filterprovider
+				
+			@GetMapping("dynamic-filtering")
+			public MappingJacksonValue dynmicFiltering() {
+				SomeBean someBean = new SomeBean("value1", "value2", "value3");
+				MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(someBean);
+				SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("field1", "field2");
+				FilterProvider filterProvider = new SimpleFilterProvider().addFilter("SomeBeanFilter", filter);
+				mappingJacksonValue.setFilters(filterProvider);
+				return mappingJacksonValue;
+			}
 
 ----------------------------------------------------------------------------
-Dynamic filtering
----------------------
-
+Exploring REST API using HAL explorer
+---------------------------------------
+* Simple format that gives a consistent and easy way to hyperlink between resources in your API.
+	   {
+		"id": 2,
+		"user_name": "Eve",
+		"birth_date": "1998-05-10",
+			"_links": {
+				"all-users": {
+					"href": "http://localhost:8080/users"
+				}
+			}
+		}
+* HAL explorer
+	# An API explorer for RESTful Hypermedia APIs using HAL
+	# Enable your non-technical teams to play with APIs
+* Spring boot HAL explorer
+	# Auto-configures HAL explorer for Spring boot projects
+	# spring-data-rest-hal-explorer
+	# pom.xml
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-hal-explorer</artifactId>
+		</dependency>
+* Type in url: http://localhost:8080/ and then you can play around
+--------------------------------------------------------------------------------------------------------------------------------------------
+Creating another entity and creating the relationships between them
+----------------------------------------------------------------------
+* We have already created User entity until now
+* We will create Post entity and do mapping between these
+* For every user, we will have many posts, so we maintain List<Post> as part of User entity
+	# This is one to many relationship
+	# @OneToMany(mappedBy = "user")
+	# mappedBy should have the field name value of the Post entity to which we are mapping
+* Every post is mapped to an user, so we maintain User details as part of Post entity
+	# This is many to one relationship
+	# @ManyToOne(fetch = FetchType.LAZY)
+	# we are maintaining fetch attribute because we need to load the user details lazily, need not be loaded for every fetch
+* We need not show details of user in the post and posts in the user, hence we have @JsonIgnore on both
+* On startup, we see the below logs
+		Hibernate: drop table if exists post cascade 
+		Hibernate: drop table if exists user_table cascade 
+		Hibernate: drop sequence if exists post_seq
+		Hibernate: drop sequence if exists user_table_seq
+		Hibernate: create sequence post_seq start with 1 increment by 50
+		Hibernate: create sequence user_table_seq start with 1 increment by 50
+		Hibernate: create table post (id integer not null, description varchar(255), user_id integer, primary key (id))
+		Hibernate: create table user_table (id integer not null, birth_date date, name varchar(255), primary key (id))
+		Hibernate: alter table if exists post add constraint FK3hi6l5jf4h50qt1u37mdsyeye foreign key (user_id) references user_table
+	# 
+--------------------------------------------------------------------------------------------------------------------------------------------
+Spring Security
+------------------
+* Launch the application and see it goes to login page for any action.
+* Default user name is user and the password is what is printed in logs.
+* In order to customize this for development environment,
+	# spring.security.user.name=username
+	# spring.security.user.password=password
+* For any POST / PUT requests, we would see error code 403 - Forbidden
+* How spring handles security
+	 # All requests should be authenticated
+	 # If a request is not authenticated, a webpage is shown
+	 # Disable CSRF to work with POST, PUT
+* Enable Spring Security Configuration by overriding the above steps
+* Create a bean FilterChain
+	@Bean
+	public SecurityFilterChain createFilterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
+		http.httpBasic(withDefaults());
+		http.csrf().disable();
+		return http.build();
+	}
 --------------------------------------------------------------------------------------------------------------------------------------------
 References:
 ------------

@@ -1,13 +1,14 @@
 package learn.restapi.restfulwebservices.filtering;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 //@JsonIgnoreProperties({"field1", "field2"}) // this is at class level
+@JsonFilter(value = "SomeBeanFilter")
 public class SomeBean {
 	
 	private String field1;
 	
-	@JsonIgnore // this is at field level
+	//@JsonIgnore // this is at field level
 	private String field2;
 	private String field3;
 	
