@@ -1,0 +1,9 @@
+Navigate to B drive commands:
+--------------------------------
+C:\Users\Sai Priya>cd ../../
+
+C:\>cd ../
+
+C:\>B:
+
+B:\>

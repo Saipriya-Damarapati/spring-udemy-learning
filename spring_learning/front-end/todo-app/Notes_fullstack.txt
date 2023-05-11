@@ -1,0 +1,231 @@
+Fullstack Architecture
+----------------------------
+1. Modern Javascript
+2. React fundamentals
+3. Components
+4. State
+5. Routing
+6. REST API
+7. Authentication
+8. Counter example
+9. Todo management app
+--------------------------------------------------------------------------------------------------------------------------
+ Why Full-Stack architecture?
+-------------------------------
+ * Full Stack architectures are complex to build
+	# need to understand different languages
+	# need to understand variety of frameworks
+	# need to use variety of tools
+* Then why full-stack?
+	# they give you flexibilty and allow reuse of REST API
+	# REST API can be used to communicate with mobile app, react app or IOT also, business logic in REST API is reused
+--------------------------------------------------------------------------------------------------------------------------
+Javascript history
+--------------------
+* ES: ECMASCRIPT
+* EcmaScript is the standard specification
+* Javascript is the implementation
+* Javascript improved drastically in the last decade.
+	# ES5-2009
+	# ES6-2015 - ES2015
+	# ES7-2016 - ES2016
+	.
+	.
+	.
+	# ES13-2022 - ES2022
+	# ES14-2023 - ES2023
+* Nowadays, writing good javascript code is not so difficult.
+--------------------------------------------------------------------------------------------------------------------------
+Installing Node.js and npm
+-----------------------------
+* Google for "Download nodejs"
+	# Install latest version of Node.js
+		- node --version
+		- npm --version
+	# Troubleshooting
+		- Google for npm troubleshooting
+		- https://docs.npmjs.com/getting-started/troubleshooting/
+* NPM - package manager for javascript
+	# Similar to Maven/Gradle in Java world
+	# npm init - create new project
+	# package.json - your dependency definitions
+	# Add a dependency
+		- npm install jquery
+		- Below content is added to package.json
+			"dependencies": {
+               "jquery": "^3.6.4"
+            }
+		- In the same directory, node_modules (temporary folder) directory is created and jquery is downloaded
+		- need not download and manage versions of dependencies, npm takes care
+--------------------------------------------------------------------------------------------------------------------------
+REACT 
+--------------
+* React is one of the most popular javascript libraries to build SPA (Single Page Applications)
+	# A single-page application (SPA) is a web application or website that interacts with the user by dynamically rewriting the current web page with new data from the web server, instead of the default method of a web browser loading entire new pages.
+	# A single-page application is an app that doesn't need to reload the page during its use and works within a browser.
+	# https://en.wikipedia.org/wiki/Single-page_application#:~:text=A%20single%2Dpage%20application%20(SPA,browser%20loading%20entire%20new%20pages.
+	# React is component based
+	# Mostly used to build front end web applications
+		- can also be used to create native apps for android and iOS (using REACT Native)
+	# Creating React app with Create React App
+		- recommended way to create a new single page application (SPA) using REACT
+		- compatible with macOS, Windows, Linux
+		- Prerequisite - Latest version of Node JS
+		- NPM - package manager: Install, delete and update JS packages (npm --version)
+		- NPX - package executer: Execute JS packages directly without installing
+	# Commands:
+		- cd your_folder
+		- npx create-react-app {app-name}  - B:\Study\git\spring-udemy-learning\spring_learning\front-end>npx create-react-app todo-app
+		- cd {app-name}                    - cd todo-app
+		- npm start
+--------------------------------------------------------------------------------------------------------------------------
+Troubleshooting
+--------------------
+* Windows: Launch command prompt as administrator
+* Mac or Linux: sudo npx create-react-app todo-app
+* Other things you can try:
+	# npm uninstall -g create-react-app
+	# npx clear-npx-cache
+	# https://create-react-app.dev/docs/troubleshooting/
+--------------------------------------------------------------------------------------------------------------------------
+NPM commands
+---------------
+* npm start
+	# Runs the app in development mode
+* npm test
+	# Runs npm tests
+* npm run build
+	# Build a production deployable unit
+		- Minified
+		- Optimized for performance
+		- build folder is created with minified version having few files like below
+			File sizes after gzip:
+				  46.62 kB  build\static\js\main.1e29b46c.js
+				  1.78 kB   build\static\js\787.2843ca88.chunk.js
+				  541 B     build\static\css\main.073c9b0a.css
+* npm install --save react-router-dom
+	# Add a dependency to your project
+--------------------------------------------------------------------------------------------------------------------------
+Visual Studio Code Tips
+-------------------------
+* Toggle Explorer
+	# Ctrl + B
+* Open file by name
+	# Ctrl + P
+* Explore left hand side bar
+	# Search, Source Control for Git, Extensions etc
+* Make a change to see the result immediately
+	# index.html
+		- change title
+	# App.js
+		- remove everything in App div
+		- add My Todo Application
+	# How is the change happening immediately?
+		- because of create-react-app
+		- npm start -> automatically builds and renders in the browser
+--------------------------------------------------------------------------------------------------------------------------
+Explore Create React App folder structure
+---------------------------------------------
+* README.md - documentation
+* package.json - define dependencies similar to pom.xml
+* node_modules - folder where all the dependencies are downloaded to
+* React initialization
+	# public/index.html
+	# src/index.js - initializes react app, loads app components
+		src/index.css - styling for entire application
+	# src/App.js - code for app component
+		src/App.css - styling for app component
+		src/App.test.js - unit tests for app component (unit test is right along side production code - different to java approach)
+* Hierarchy
+	# index.html is the first component to be loaded in the browser, this contains the root div
+	# index.js populates the root div with the App component
+* Syntax might look little more complex
+	# Different from typical java code (imports,..)
+--------------------------------------------------------------------------------------------------------------------------
+React components
+-------------------
+* Web applications have complex structure
+	# Menu, header, footer, welcome page, login page, logout page, todo page etc.
+	# Components helps to modularize react apps
+		- Create separate component for each page element
+			> Menu component
+			> Header component
+			> Footer component
+			> ...
+	# Why to create separate components?
+		- Modularization
+		- Reusability
+* First component typically loaded in React apps - App component
+* Parts of a Component
+	# View (JSX or Javascript)
+	# Logic (Javascript)
+	# Styling (CSS)
+	# State (Internal Data Store)
+	# Props (Pass Data)
+* [Remember] React component names must always start with a capital letter
+--------------------------------------------------------------------------------------------------------------------------
+Creating the first React component
+===================================
+* App.js
+	# We have the content which is currently loaded in the page
+	# All the react components that we will be creating will be the child components of app component
+	# App component at the top
+	# First component and Second component are the children of app component
+	# First component and second components are created using functions, so they are called function components
+	# Third component and fourth components are created using classes, so they are called class components
+	# Each javascript file that is present is called a module
+------------------------------------
+* State
+	# Built-in React object used to contain data or information about the component
+	# In earlier versions of React, only class components can have state and implementing state was very complex
+	# Hooks were introduced in React 16.8
+		- Hooks are very easy to use
+		- useState hook allows adding state to function components
+* Function component vs Class component
+	# With the introduction of hooks which allow state for function components, usage of class components got reduced
+	# Prior versions would have class components whenever state implementation was required
+--------------------------------------------------------------------------------------------------------------------------
+JSX - Javascript XML
+------------------------
+	# Views with React
+		- React projects use JSX for presentation
+		- JSX is stricter than HTML
+			> Close tags are mandatory
+			> Only one top level tag is allowed
+				-> cannot return multiple top-level JSX tags
+				-> wrap into a shared parent if we need to return multiple top-level JSX tags
+				-> <div>...</div> or <>...</> (empty wrapper)
+	# How is JSX enabled in React project?
+		- Different browsers have differnet levels of support for modern JS features (ES2015, ..., ES2022)
+		- How to ensure backward compatibility for JS code written with latest ecma standards? 
+			(Older browsers might not support new standards)
+		- Solution: Babel (Babel converts JSX code to Javascript)
+		- Explore here: https://babeljs.io/repl
+	# How does JSX gets converted into JS?
+		Example 1: <h1 classname="something" attr="10">Header</h1>
+		Example 2: 
+					<parent attr="1">
+						<child><anotherChild></anotherChild></child>
+					</parent>
+	# Following are examples of errors:
+			<h1></h1><h2></h2>
+		Solution is to wrap them in a parent div
+	# Parentheses make returning complex JSX values easier
+	# Specify CSS class - className
+--------------------------------------------------------------------------------------------------------------------------
+Best practices
+-----------------
+* Each component in its own file (or module)
+	# To use a class from a different module, you need to import it
+		- Default import 
+			> import FirstComponent from './components/learning-examples/FirstComponent';
+		- Named import
+			> import {FifthComponent} from './components/learning-examples/FirstComponent'; 
+--------------------------------------------------------------------------------------------------------------------------
+Javascript features
+-----------------------
+* No need to use semi-colon
+* Dynamic objects
+* You can store a function in an object
+* Refer src\components\learning-examples\LearningJavaScript.jsx
+--------------------------------------------------------------------------------------------------------------------------

@@ -13,3 +13,38 @@
 	# https://cglearning.udemy.com/course/functional-programming-with-java/
 	
 	# https://cglearning.udemy.com/course/spring-tutorial-for-beginners/
+	
+===================================================================================================================================	
+[LEARNING PATH 00] - DevOps 
+	Master DevOps with Docker, Kubernetes and Azure DevOps
+
+[LEARNING PATH 01] - Spring and Spring Boot Web Applications & API Developer
+	Spring Framework Master Class - Learn Spring the Modern Way!
+	Learn Spring Boot in 100 Steps - Beginner to Expert
+	Master Java Web Services and RESTful API with Spring Boot
+	Master Hibernate and JPA with Spring Boot in 100 Steps
+	Master Java Unit Testing with Spring Boot & Mockito
+
+[LEARNING PATH 02] - Full Stack Developer with Spring Boot, React and Angular
+	Go Java Full Stack with Spring Boot and React
+	Go Java Full Stack with Spring Boot and Angular
+
+[LEARNING PATH 03] - Cloud Microservices with Spring Boot, Docker & Kubernetes
+	Master Microservices with Spring Boot and Spring Cloud
+	Master Docker with Java - DevOps for Spring Microservices
+	Master Kubernetes with Docker on Google Cloud, AWS & Azure
+
+[LEARNING PATH 04] - Cloud Developer with Spring Boot, AWS, Azure, and PCF
+	Learn AWS - Deploy Java Spring Boot to AWS Elastic Beanstalk
+	Master Azure Web Apps - Take Java Spring Boot Apps to Azure
+	Master Pivotal Cloud Foundry with Spring Boot Microservices
+
+[LEARNING PATH 05] - Learn AWS with Microservices, Docker, and Kubernetes
+	Learn AWS - Deploy Java Spring Boot to AWS Elastic Beanstalk
+	Master AWS Fargate & ECS with Java Spring Boot Microservices
+	Master Kubernetes with Docker on Google Cloud, AWS & Azure
+
+[LEARNING PATH 06] - GET AWS CERTIFIED
+	AWS Certified Cloud Practitioner - Step By Step
+	AWS Certified Developer Associate  - Step By Step
+	AWS Certified Solutions Architect Associate - Step By Step
