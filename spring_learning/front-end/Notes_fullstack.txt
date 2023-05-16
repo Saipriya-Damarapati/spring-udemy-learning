@@ -1,0 +1,21 @@
+Todo fullstack application
+----------------------------
+* What will we learn in this section?
+	- Routing
+	- Forms
+	- Validation
+	- REST API calls
+	- Authentication
+	- JWT Tokens
+* Todo app components
+	- Login component
+		
+	- Welcome component
+	- Error component
+	- ListTodos component
+	- Add bootstrap for styling
+	- Header component
+	- Footer component
+	- Logout component
+--------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------

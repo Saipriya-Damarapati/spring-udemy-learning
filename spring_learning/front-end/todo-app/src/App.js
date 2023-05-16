@@ -1,5 +1,6 @@
 import './App.css';
 import LearningComponent from './components/learning-examples/LearningComponent';
+import TodoApp from './components/todo/TodoApp';
 
 
 // We have the content which is currently loaded in the page in App.js
@@ -7,8 +8,7 @@ import LearningComponent from './components/learning-examples/LearningComponent'
 function App() {
   return (
     <div className="App">
-      My first REACT web application
-      <LearningComponent></LearningComponent>
+      <TodoApp></TodoApp>
     </div>
   );
 }

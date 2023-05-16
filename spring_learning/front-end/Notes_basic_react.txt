@@ -17,7 +17,7 @@ Fullstack Architecture
 	# need to understand variety of frameworks
 	# need to use variety of tools
 * Then why full-stack?
-	# they give you flexibilty and allow reuse of REST API
+	# they give you flexibility and allow reuse of REST API
 	# REST API can be used to communicate with mobile app, react app or IOT also, business logic in REST API is reused
 --------------------------------------------------------------------------------------------------------------------------
 Javascript history
@@ -156,7 +156,7 @@ React components
 		- Modularization
 		- Reusability
 * First component typically loaded in React apps - App component
-* Parts of a Component
+* Parts of a Component (Learning from Counter Application)
 	# View (JSX or Javascript)
 	# Logic (Javascript)
 	# Styling (CSS)
@@ -196,7 +196,7 @@ JSX - Javascript XML
 				-> wrap into a shared parent if we need to return multiple top-level JSX tags
 				-> <div>...</div> or <>...</> (empty wrapper)
 	# How is JSX enabled in React project?
-		- Different browsers have differnet levels of support for modern JS features (ES2015, ..., ES2022)
+		- Different browsers have different levels of support for modern JS features (ES2015, ..., ES2022)
 		- How to ensure backward compatibility for JS code written with latest ecma standards? 
 			(Older browsers might not support new standards)
 		- Solution: Babel (Babel converts JSX code to Javascript)
@@ -222,10 +222,102 @@ Best practices
 		- Named import
 			> import {FifthComponent} from './components/learning-examples/FirstComponent'; 
 --------------------------------------------------------------------------------------------------------------------------
-Javascript features
+Javascript featuress
 -----------------------
 * No need to use semi-colon
 * Dynamic objects
 * You can store a function in an object
 * Refer src\components\learning-examples\LearningJavaScript.jsx
+--------------------------------------------------------------------------------------------------------------------------
+Styling CSS
+--------------
+1. style attribute: using style attribute in the jsx file itself, double curly braces important
+2. className attribute: import separate css file and have css components in it referred by className
+
+Refer: front-end\counter-app\src\components\counter\Counter-Css-Learning.jsx
+--------------------------------------------------------------------------------------------------------------------------
+Understanding state in React
+--------------------------------
+* useState hook allows adding state to function components
+* useState returns two things:
+	# Current state
+	# A function to update state
+* Each instance of component has its own state
+* How to share state between components
+	# Move state "upwards" (to a parent component)
+--------------------------------------------------------------------------------------------------------------------------
+What is happening in the background?
+-------------------------------------
+* We updated the state => React updated the view
+* How to update HTML element?
+	# A HTML page is represented by DOM (Document Object Model)
+	# Each element in a HTML page is a node in DOM
+	# You need to update DOM to update HTML element
+	# However, writing the code to update the DOM can be complex and slow
+* REACT takes a different approach
+	# Virtual DOM: "virtual" representation of a UI (kept in memory)
+	# React code updates the virtual DOM, when state is updated
+	# React identifies changes and synchronizes them to HTML page
+		- React creates virtual DOM V1 on load of page
+		- You perform an action
+			> React creates virtual DOM V2 as a result of your action
+			> React performs a diff between v1 and v2
+			> React synchronizes the changes (updated HTML changes)
+* Summary: We are not updating the DOM directly, REACT identifies the changes and efficiently updates the DOM.
+--------------------------------------------------------------------------------------------------------------------------
+REACT props
+--------------
+* You can pass "props" (short for properties) object to a React component
+* Used for things that remain constant during lifetime of a component
+	- Example, increment value of a specific component
+	- Example for props
+		<PlayingWithProps property1="value1" property2="value2"></PlayingWithProps>
+		- function PlayingWithProps(properties) {
+		- function PlayingWithProps({property1, property2}) {
+	# <Counter by={1} /> for 1 as number in the props
+	# <Counter by="1" /> for 1 as string in the props
+
+* import { PropTypes } from 'prop-types'
+	// in-order to restrict the data-type of property by
+		Counter.propTypes = {
+			by: PropTypes.number
+		}
+
+	// to set the default value to the props
+		Counter.defaultProps = {
+			by: 1
+		}
+--------------------------------------------------------------------------------------------------------------------------
+Having common state - Moving the state up
+-------------------------------------------
+* Deconstruction:
+ 	// const state = useState(0); --> this line can be written as below after deconstructing
+    //const [count, setCount] = useState(0); // now count contains current state and setCount is the update function
+	
+	function incrementCounter() {
+        //state[1](state[0] + 1) --> this can be written as below
+        setCount(count + by)
+    }
+* Create state in the parent component
+* Create functions to update the state
+--------------------------------------------------------------------------------------------------------------------------
+Calling parent component methods in child
+--------------------------------------------
+* In order to call the function defined in parent method from the child method, pass the reference of the method in the child component
+* export default function CounterButton({by, incrementMethod, decrementMethod}) {
+* 			<CounterButton by={1} 
+                incrementMethod={incrementCounterInParent} 
+                decrementMethod={decrementCounterInParent}/>
+--------------------------------------------------------------------------------------------------------------------------
+To develop counter application in step by step approach
+---------------------------------------------------------
+* Create a component with a value count and two buttons increment and decrement (CounterButton.jsx)
+* invoke js functions on click of buttons in the same component
+* introduce a parent component which will have multiple child components as above (Counter.jsx)
+* instead of duplicating the child component, introduce a propType to refer child component from parent component
+* have restrictions on the proptype to accept only integer
+* have default value on proptype
+* create a common state variable and functions in the parent to update parent state
+* create references of parent functions in the child component
+* remove child component state and update functions
 --------------------------------------------------------------------------------------------------------------------------
