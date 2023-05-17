@@ -1,5 +1,4 @@
 import './App.css';
-import LearningComponent from './components/learning-examples/LearningComponent';
 import TodoApp from './components/todo/TodoApp';
 
 

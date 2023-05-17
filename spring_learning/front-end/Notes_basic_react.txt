@@ -212,6 +212,7 @@ JSX - Javascript XML
 		Solution is to wrap them in a parent div
 	# Parentheses make returning complex JSX values easier
 	# Specify CSS class - className
+	# To comment code in JSX, {/* ....*/}, select the text and ctrl + /
 --------------------------------------------------------------------------------------------------------------------------
 Best practices
 -----------------

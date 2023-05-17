@@ -1,0 +1,54 @@
+Gradle
+-------------
+* Goal
+	# Build, automate and deliver better software, faster
+* Cross-platform tool
+	# Build anything: Java, C, C++, Javascript, Python
+* Automate everything
+	# Completely programmable
+	# Complete flexibility
+	# Uses a DSL (Domain Specific Language)
+		- Supports Groovy and Kotlin
+* Deliver Faster
+	# Blazing-fast builds
+	# Implements many complex advanced features like Compile avoidance to advanced caching
+	# Can speed up Maven builds by up to 90%
+		> Incrementality - Gradle runs only what is necessary
+			Example: Compiles only changed files
+		> Build cache: Reuses the build outputs of other gradle builds with the same inputs
+* Follows same project layout as Maven
+* Disadvantage: IDE support is still evolving
+	# Eclipse does not automatically sychronize gradle project. 
+	# We need to manually refresh gradle project for any change in build.gradle
+---------------------------------------------------------------------------------------------------------------------------------
+Gradle plugins
+---------------------
+1. Java plugin
+	# Java compilation + testing + bundling capabilities
+	# Default layout
+		- src/main/java: Production Java source code
+		- src/main/resources: Production resources such as XML and properties files
+		- src/test/java: Test Java code
+		- src/test/resources: Test resources
+	# Key task: build
+
+2. Dependency Management: Maven-like dependency management, to pull dependencies
+	# group:'org.springframework', name:'spring-core', version:'10.0.3.RELEASE'
+	# shortcut: 'org.springframework:spring-core:10.0.3.RELEASE'
+3. Spring Boot Gradle Plugin: Spring boot support in gradle
+	# package executable spring boot jar, container image (bootJar, bootBuildImage)
+	# Use dependency management enabled by spring-boot-dependencies
+		> No need to specify dependency version
+			example: implementation('org.springframework.boot:spring-boot-starter')
+---------------------------------------------------------------------------------------------------------------------------------
+Maven vs Gradle
+------------------
+* Popular examples
+	# Spring Framework - Using gradle since 2012 (v3.2.0)
+	# Spring Boot - Using gradle since 2020 (v2.3.0)
+	# Spring Cloud - Continues to use Maven even today
+		Last update: No plans to switch
+* Top Maven advantages: Familiar, Simple and Restrictive
+* Top Gradle advantages: Faster build times and less verbose, flexible
+
+---------------------------------------------------------------------------------------------------------------------------------

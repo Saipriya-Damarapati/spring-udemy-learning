@@ -1,0 +1,106 @@
+* POM - Project Object Model
+* Everyday tasks of a developer
+	# Create new projects
+	# Manage dependencies and their versions
+		- Spring, Spring MVC and Hibernate
+		- Add/Modify dependencies
+	# Build a jar file
+	# Run the application locally in Tomcat/Jetty
+	# Run unit tests
+	# Deploy to a test environment
+* Maven helps to do all these tasks
+-------------------------------------------------------------------------------------------------------------------------------------
+pom.xml
+---------
+* Maven dependencies
+	# Frameworks & libraries used in a project
+	# 	<dependencies>
+			<dependency>
+			</dependency>
+		</dependencies>
+	# Why there are so many dependencies in the classpath?
+		- Because of transitive dependencies
+* Parent POM
+	# spring-boot-starter-parent
+		- Dependency Management: spring-boot-dependencies
+		- Properties: java-version, plugins and configurations
+* Name of our project: groupId + artifactId
+	# groupId: similar to package name
+	# artifactId: similar to class name
+	# Why it is important?
+		- To make our projects usable for other projects
+* Maven build: help:effective-pom
+* Maven build: dependency:tree
+-------------------------------------------------------------------------------------------------------------------------------------
+Maven build cycle
+-------------------
+* When we run a maven command, maven build life cycle is used
+* Build life cycle is a sequence of steps
+	# Validate
+	# Compile
+	# Test
+	# Package
+	# Integration Test
+	# Verify
+	# Install
+	# Deploy
+-------------------------------------------------------------------------------------------------------------------------------------
+How does Maven work?
+---------------------
+* Maven follows convention over configuration
+	# Pre defiend folder structure
+	# Almost all java projects follow Maven structure for consistency
+* Maven central repository contains jars (and others) indexed by groupId and artifactId
+	# Stores all the versions of dependencies
+* Any other repository can be configured like below
+	# repositories > repository
+	# pluginRepositories > pluginRepository
+* Repositories
+	- Central repository
+	- Local repository
+* When a dependency is added to pom.xml, Maven tries to download the dependency
+	# Downloaded dependencies are stored inside your maven local repository
+	# Our eclipse project loads the jars from local repository, which is a temp folder like "C:\Users\Sai Priya\.m2\repository"
+	# Local repository 
+		- a temp folder on your machine, 
+		- where maven stores the jar and dependency files that are downloaded from maven repository.
+-------------------------------------------------------------------------------------------------------------------------------------
+Important maven commands
+---------------------------
+* mvn --version
+* mvn compile: compiles all source files
+* mvn test-compile: compiles all test files, and source files also
+* mvn clean: delete target directory
+* mvn test: runs the unit tests, it compiles source files and test files before executing unit tests
+* mvn package: create a jar file, generates a jar in the target directory
+* Maven build: help:effective-pom
+* Maven build: dependency:tree
+* mvn spring-boot:build-image can be used to build a container image using Spring Boot Maven Plugin.
+-------------------------------------------------------------------------------------------------------------------------------------
+Versioning spring projects
+----------------------------
+* Version scheme - MAJOR.MINOR.PATCH[-MODIFIER]
+	# MAJOR - Significant amount of work to upgrade (10.0.0 to 11.0.0)
+	# MINOR - Little to no work to upgrade (10.1.0 to 10.2.0)
+	# PATCH - No work to upgrade (10.5.4 to 10.5.5)
+	# MODIFIER - Optional modifier (indicates if it is a released version or milestone version or snapshot version or a release candidate)
+		- Milestones - M1, M2,.. (10.3.0-M1, 10.3.0-M2)
+		- Release candidates - RC1, RC2,.. (10.3.0-RC1, 10.3.0-RC2)
+		- Snapshots - SNAPSHOT (under development, appended with SNAPSHOT)
+		- Relased versions - Modifier is absent (10.0.0, 10.1.0)
+* These days, only released versions are pushed to central maven repository, so they removed the word RELEASE
+* Milestone and Release Candidate versions are part of spring repository 
+	- For example, https://repo.spring.io/ui/native/milestone/org/springframework/boot/spring-boot-starter/
+* This repository is included in pom.xml under repositories tag
+* Example versions in order
+	- 10.0.0-SNAPSHOT
+	- 10.0.0-M1
+	- 10.0.0-M2
+	- 10.0.0-RC1
+	- 10.0.0-RC2
+	- 10.0.0
+* Recommendations:
+	- Avoid Snapshots, they are the versions currently in development phase
+	- Use only Released versions in production
+	- Milestones and Release candidates are intermediate versions
+-------------------------------------------------------------------------------------------------------------------------------------

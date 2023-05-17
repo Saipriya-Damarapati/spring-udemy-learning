@@ -9,7 +9,6 @@ Todo fullstack application
 	- JWT Tokens
 * Todo app components
 	- Login component
-		
 	- Welcome component
 	- Error component
 	- ListTodos component
