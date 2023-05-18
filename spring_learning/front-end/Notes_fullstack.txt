@@ -17,4 +17,80 @@ Todo fullstack application
 	- Footer component
 	- Logout component
 --------------------------------------------------------------------------------------------------------------------------
+Login Component
+-----------------
+* Login form, having default value for a form element with value attribute as below, would give an error
+	# <input type="text" name="username" value="Ranga"/>
+	# Warning: 
+		> A component is changing an uncontrolled input of type text to be controlled. 
+		> Input elements should not switch from uncontrolled to controlled (or vice versa). 
+		> Decide between using a controlled or uncontrolled input element for the lifetime of the component.
+	# Controlled Component - Data is controlled by parent component
+	# Uncontrolled Component - Data is controlled by DOM itself
+	# Ref - https://www.javatpoint.com/react-controlled-vs-uncontrolled-component
+	
+	# Whenever we are dealing with form elements, form element data can be stored in 2 ways
+		> React state
+		> Value in the form element itself, i.e, DOM element itself
+	# In order to have controlled component, we need to synchronize the react state and the DOM element
+		> Create a state to hold the form element value, for example, username
+		> Set the default value in useState()
+		
+			const [username, setUsername] = useState('Ranga')
+			<input type="text" name="username" value={username} />
+		
+			- Warning: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`.
+		> The form element is still read-only, because we need to add onChange handler.
+		> Add the onChange handler and implement the associated function
+		> The data changed on the form field will be collected by the event in the target
+			
+			    const [username, setUsername] = useState('Ranga')
+
+				function handleUsernameChange(event) {
+					setUsername(event.target.value)
+				}
+	# Now this becomes a controlled component, because we have a form field which is directly tied up with react state
+	# Implement the same for password field
+	# Create new function components for success and failure divs
+	# Include these with in the logincomponent
+	# return success div or failure div based on the state variables respectively
+	# Refer 001_LoginComponentAuthentication.jsx for this step backup
+--------------------------------------------------------------------------------------------------------------------------
+Understand Javascript boolean operations
+------------------------------------------
+	>	true && 'Ranga'
+		'Ranga'
+	>	false && 'Ranga'
+		false
+		
+* Anything between {} is either a variable or executable
+* Replace success component with the below having same logic and remove that function component
+	> {showSuccessMessage && <div className='successMessage'>Authenticated Successfully</div>}
+===========================================================================================================================
+React Router DOM & Routing from Login component to welcome component
+----------------------------------------------------------------------
+* npm install react-router-dom
+* check if it is updated in package.json
+------------------------------------------------
+* Configure specific url for login component and specific url for welcome component
+* import { BrowserRouter, Routes, Route } from 'react-router-dom'
+* 	<BrowserRouter>
+        <Routes>
+			<Route path='/' element={<LoginComponent />}></Route>
+            <Route path='/login' element={<LoginComponent />}></Route>
+            <Route path='/welcome' element={<WelcomeComponent />}></Route>
+        </Routes>
+    </BrowserRouter>
+	# The element above follows the JSX element syntax
+* In order to route from one component to another component, we can use a hook called useNavigate from react-router-dom
+	# useNavigate hook returns a reference to a function
+	# import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+	# const navigate = useNavigate()
+	# navigate("/welcome") in the function handleSubmit
+--------------------------------------------------------------------------------------------------------------------------
+Error component
+------------------
+* Add the Route below
+	# <Route path='*' element={<ErrorComponent />}></Route>
+	
 --------------------------------------------------------------------------------------------------------------------------
