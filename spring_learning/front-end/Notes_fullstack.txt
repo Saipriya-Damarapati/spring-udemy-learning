@@ -92,5 +92,119 @@ Error component
 ------------------
 * Add the Route below
 	# <Route path='*' element={<ErrorComponent />}></Route>
-	
+--------------------------------------------------------------------------------------------------------------------------
+Pass path parameters :: Remove hard coding in welcome component
+------------------------------------------------------------------
+* import useParams hook from react-router-dom
+* To accept the path parmater in the url,
+	# <Route path='/welcome/:username' element={<WelcomeComponent />}></Route>
+* To pass the path paramater value 	from LoginComponent
+	# navigate(`/welcome/${username}`)
+	# Above syntax is used to replace the value of username
+* To validate if the value is received in the WelcomeComponent,
+	#	const params = useParams()
+		console.log(params)
+		console.log(params.username)
+	# here, useParams() is a hook, which returns an object with all the data in path params
+	# However, it is also common to get specific value from path parameters as below
+		const {username} = useParams()
+		console.log(username)
+	# This value username can be further used in function component
+--------------------------------------------------------------------------------------------------------------------------
+Getting started with React List todo component
+------------------------------------------------
+* To display the table of todos in the browser, below code is for single element
+
+			function ListTodosComponent() {
+				const todos = {id: 1, description: 'Learn AWS'}
+
+				return (
+					<div className='listTodosComponent'>
+						<h1>Things you have To Do ! </h1>
+						<div>
+							<table>
+								<thead>
+									<tr>
+										<td>Id</td>
+										<td>Description</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{todos.id}</td>
+										<td>{todos.description}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				)
+			}
+			
+* If we have the table of todos with multiple elements, you have to iterate the array
+	# Pre-requisite: Learn by executing the below commands in browser console
+		- Create an array of object in javascript
+				const todos =   [
+									{id: 1, description: 'Learn AWS'},
+									{id: 2, description: 'Learn Azure'}
+								]
+				undefined
+		- display todos	
+				todos
+				(2) [{…}, {…}]
+		- display todos in array based on position
+				todos[0]
+				{id: 1, description: 'Learn AWS'}
+				todos[1]
+				{id: 2, description: 'Learn Azure'}
+		- use arrow function to iterate over each element
+				todos.forEach(element => console.log(element))
+				VM495:1 {id: 1, description: 'Learn AWS'}
+				VM495:1 {id: 2, description: 'Learn Azure'}
+				undefined
+		- use map function to get particular value of todo
+				todos.map(element => element.id)
+				(2) [1, 2]
+				todos.map(element => element.description)
+				(2) ['Learn AWS', 'Learn Azure']
+				
+	# Add dynamic value in tbody by iterating the object array
+	# Each child in a list should have a unique key prop
+	# This can be added on tr tag of tbody
+	# Best practices: Have a unique key prop for every element in the list, react uses id to update the DOM elements
+			function ListTodosComponent() {
+		
+				const todos =   [
+									{id: 1, description: 'Learn AWS'},
+									{id: 2, description: 'Learn Azure'}
+								]
+				
+				return (
+					<div className='listTodosComponent'>
+						<h1>Things you have To Do ! </h1>
+						<div>
+							<table>
+								<thead>
+									<tr>
+										<td>Id</td>
+										<td>Description</td>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										todos.map(
+											todo => (
+												<tr key={todo.id}>
+													<td>{todo.id}</td>
+													<td>{todo.description}</td>
+												</tr>
+											)
+										)
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				)
+			}
 --------------------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate, useParams } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import './TodoApp.css'
 
 export default function TodoApp() {
@@ -7,11 +7,10 @@ export default function TodoApp() {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<LoginComponent />} />
-                    <Route path='/login' element={<LoginComponent />} />
-                    <Route path='/welcome/:username' element={<WelcomeComponent />} />
-                    <Route path='/todos' element={<ListTodosComponent />} />
-                    <Route path='*' element={<ErrorComponent />} />
+                    <Route path='/' element={<LoginComponent />}></Route>
+                    <Route path='/login' element={<LoginComponent />}></Route>
+                    <Route path='/welcome' element={<WelcomeComponent />}></Route>
+                    <Route path='*' element={<ErrorComponent />}></Route>
                 </Routes>
             </BrowserRouter>
         </div>
@@ -41,7 +40,7 @@ function LoginComponent() {
         if(username === 'Ranga1234' && password === 'dummy') {
             displaySuccessDiv(true)
             displayFailureDiv(false)
-            navigate(`/welcome/${username}`)
+            navigate("/welcome")
         } else {
             displayFailureDiv(true)
             displaySuccessDiv(false)
@@ -72,13 +71,12 @@ function LoginComponent() {
     )
 }
 
+
+
 function WelcomeComponent() {
-
-    const {username} = useParams()
-
     return (
         <div className="welcome">
-            <h1>Welcome {username}</h1>
+            <h1>Welcome</h1>
             <div>
                 Welcome Component
             </div>
@@ -92,42 +90,6 @@ function ErrorComponent() {
             <h1>We are working really hard!!</h1>
             <div>
                 Apologies for 404. Reach out to our team at ABC-DEF-GHIJ.
-            </div>
-        </div>
-    )
-}
-
-function ListTodosComponent() {
-
-    const todos =   [
-                        {id: 1, description: 'Learn AWS'},
-                        {id: 2, description: 'Learn Azure'}
-                    ]
-    
-    return (
-        <div className='listTodosComponent'>
-            <h1>Things you have To Do ! </h1>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Id</td>
-                            <td>Description</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            todos.map(
-                                todo => (
-                                    <tr key={todo.id}>
-                                        <td>{todo.id}</td>
-                                        <td>{todo.description}</td>
-                                    </tr>
-                                )
-                            )
-                        }
-                    </tbody>
-                </table>
             </div>
         </div>
     )
