@@ -1,4 +1,4 @@
-package learn.spring.jpa.hibernate.learnspringjpahibernate.course;
+package learn.spring.jpa.hibernate.learnspringjpahibernate.course.pojo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

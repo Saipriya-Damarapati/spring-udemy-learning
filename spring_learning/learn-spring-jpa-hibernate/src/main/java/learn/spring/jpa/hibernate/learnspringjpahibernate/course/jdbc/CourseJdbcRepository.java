@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import learn.spring.jpa.hibernate.learnspringjpahibernate.course.Course;
+import learn.spring.jpa.hibernate.learnspringjpahibernate.course.pojo.Course;
 
 @Repository
 public class CourseJdbcRepository {

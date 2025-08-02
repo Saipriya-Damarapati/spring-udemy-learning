@@ -1,11 +1,10 @@
 package learn.spring.jpa.hibernate.learnspringjpahibernate.course;
 
+import learn.spring.jpa.hibernate.learnspringjpahibernate.course.pojo.JPACourse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import learn.spring.jpa.hibernate.learnspringjpahibernate.course.jdbc.CourseJdbcRepository;
-import learn.spring.jpa.hibernate.learnspringjpahibernate.course.jpa.CourseJPARepository;
 import learn.spring.jpa.hibernate.learnspringjpahibernate.course.springdatajpa.CourseSpringDataJPARepository;
 
 @Component

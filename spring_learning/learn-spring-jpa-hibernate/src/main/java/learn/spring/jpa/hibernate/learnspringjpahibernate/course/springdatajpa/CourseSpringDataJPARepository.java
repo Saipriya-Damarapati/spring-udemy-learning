@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import learn.spring.jpa.hibernate.learnspringjpahibernate.course.JPACourse;
+import learn.spring.jpa.hibernate.learnspringjpahibernate.course.pojo.JPACourse;
 
 public interface CourseSpringDataJPARepository extends JpaRepository<JPACourse, Long> {
 	

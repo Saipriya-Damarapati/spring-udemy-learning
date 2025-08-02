@@ -1,4 +1,4 @@
-package learn.spring.jpa.hibernate.learnspringjpahibernate.course;
+package learn.spring.jpa.hibernate.learnspringjpahibernate.course.pojo;
 
 public class Course {
 
